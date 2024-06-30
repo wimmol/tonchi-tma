@@ -24,8 +24,5 @@ export default defineConfig({
   preview: {
     port: 3000,
   },
-  build: {
-    outDir: './docs',
-  },
   base: './',
 });
