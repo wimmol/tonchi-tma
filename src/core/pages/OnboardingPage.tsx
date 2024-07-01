@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import WebApp from '@twa-dev/sdk';
 
 interface OnboardingProps {
   step: number;
@@ -102,9 +101,6 @@ const NextButton = styled.button<OnboardingProps>`
 `;
 
 const OnboardingPage = () => {
-  if (!WebApp.isExpanded) {
-    WebApp.expand();
-  }
   const navigate = useNavigate();
   // State variables
   const [step, setStep] = useState<number>(1);
@@ -115,6 +111,7 @@ const OnboardingPage = () => {
   // Function to handle next step
   const nextStep = () => {
     let newStep = step + 1;
+
     setStep(newStep);
     console.log('newStep', newStep);
     switch (newStep) {
