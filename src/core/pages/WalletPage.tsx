@@ -1,82 +1,105 @@
-import styled from '@emotion/styled';
-import { Box, Button, IconButton, Text, VStack } from '@chakra-ui/react';
-import SendButtonIcon from '@core/assets/icons/send_button.svg';
-import TopUpButtonIcon from '@core/assets/icons/topup_button.svg';
-import ChangeButtonIcon from '@core/assets/icons/change_button.svg';
-import ShopButtonIcon from '@core/assets/icons/shop_button.svg';
-import BlueCoinIcon from '@core/assets/icons/blue_coin.svg';
-
-
-// Styled components
-const Container = styled(Box)`
-    background-color: #f7f7f7;
-    padding: 20px;
-    text-align: center;
-    height: 80vh;
-`;
-
-const BalanceText = styled(Text)`
-    font-size: 24px;
-    font-weight: bold;
-`;
-
-const CoinContainer = styled(Box)`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: white;
-    min-width: 358px;
-    width: 80%;
-    border-radius: 10px;
-`;
-
-const CoinInfo = styled(Box)`
-    display: flex;
-    align-items: center;
-`;
-
-const CoinIcon = styled(Box)`
-    width: 37px;
-    height: 37px;
-    background-color: #74B9FF;
-    border-radius: 50%;
-    margin-right: 10px;
-`;
-
-const CoinText = styled(Text)`
-    font-size: 18px;
-    margin-left: 10px;
-`;
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { useAppSelector } from '@core/storeConfig/store.ts';
+import {
+  selectBalance,
+  selectIsTutorialComplete,
+} from '@core/store/selectors.ts';
+import sendInactiveIcon from '@core/assets/icons/walletButtons/send-inactive.svg';
+import shopInactiveIcon from '@core/assets/icons/walletButtons/shop-inactive.svg';
+import plusInactiveIcon from '@core/assets/icons/walletButtons/plus-inactive.svg';
+import exchangeInactiveIcon from '@core/assets/icons/walletButtons/exchange-inactive.svg';
+import spratImage from '@core/assets/images/sprat.png';
+import { TonConnectButton } from '@tonconnect/ui-react';
 
 const WalletPage = () => {
+  const balance = useAppSelector(selectBalance);
+  const isTutorialCompleted = useAppSelector(selectIsTutorialComplete);
   return (
-    <Container>
-      <VStack spacing={4}>
-        <BalanceText>Balance</BalanceText>
-        <Text fontSize="48px">5 YTC</Text>
-        <Box marginBottom={6} display="flex" justifyContent="space-around" width="100%">
-          <IconButton backgroundColor={'#f7f7f7'} icon={<img src={SendButtonIcon} />} aria-label="Send" />
-          <IconButton backgroundColor={'#f7f7f7'} icon={<img src={TopUpButtonIcon} />} aria-label="Top Up" />
-          <IconButton backgroundColor={'#f7f7f7'} icon={<img src={ChangeButtonIcon} />} aria-label="Change" />
-          <IconButton backgroundColor={'#f7f7f7'} icon={<img src={ShopButtonIcon} />} aria-label="Change" />
-        </Box>
-        <CoinContainer>
-          <CoinInfo>
-            <img height={40} width={40} src={BlueCoinIcon} alt="Blue Tonchi Coin" />
-            <CoinText>Blue Tonchi Coin</CoinText>
-          </CoinInfo>
-          <Button textColor={'white'} backgroundColor={'#007AFF'} rounded={20}>BUY</Button>
-        </CoinContainer>
-        <CoinContainer>
-          <CoinInfo>
-            <CoinIcon backgroundColor={'#74B9FF'} />
-            <CoinText>Yummy Treats</CoinText>
-          </CoinInfo>
-          <Button textColor={'white'} backgroundColor={'#8E8E93'} rounded={20}>BUY</Button>
-        </CoinContainer>
-      </VStack>
-    </Container>
+    <Box>
+      <Flex flexDirection="column" alignItems="center">
+        <Text fontSize={16} fontWeight={500} pt={4}>
+          Balance
+        </Text>
+        <Flex alignItems="flex-end" pt={30}>
+          <Text fontSize={35} fontWeight={700} lineHeight="30px">
+            {balance}
+          </Text>
+          <Text fontSize={30} lineHeight="30px" pl={2} color="#8E8E93">
+            YTC
+          </Text>
+        </Flex>
+      </Flex>
+      <Flex justifyContent="space-between" pt={5} px={2}>
+        <Flex flexDirection="column" p={2} alignItems="center">
+          <Image src={sendInactiveIcon} h={27.5} w={27.5} />
+          <Text pt={1} color="#8E8E93" fontSize={12}>
+            Send
+          </Text>
+        </Flex>
+        <Flex flexDirection="column" p={2} alignItems="center">
+          <Image src={plusInactiveIcon} h={27.5} w={27.5} />
+          <Text pt={1} color="#8E8E93" fontSize={12}>
+            Top Up
+          </Text>
+        </Flex>
+        <Flex flexDirection="column" p={2} alignItems="center">
+          <Image src={exchangeInactiveIcon} h={27.5} w={27.5} />
+          <Text pt={1} color="#8E8E93" fontSize={12}>
+            Change
+          </Text>
+        </Flex>
+        <Flex flexDirection="column" p={2} alignItems="center">
+          <Image src={shopInactiveIcon} h={27.5} w={27.5} />
+          <Text pt={1} color="#8E8E93" fontSize={12}>
+            Shop
+          </Text>
+        </Flex>
+      </Flex>
+      <Flex flexDirection="column" pt={5}>
+        <Flex
+          bg="white"
+          borderRadius={12}
+          p={3}
+          mb={3}
+          justifyContent="space-between"
+        >
+          <TonConnectButton />
+          <Text fontWeight={600} pl={4}>
+            TON
+          </Text>
+        </Flex>
+        <Flex
+          bg="white"
+          borderRadius={12}
+          h="60px"
+          px={4}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Flex alignItems="center">
+            <Image src={spratImage} w="35px" h="48px" />
+            <Box pl={2}>
+              <Text fontSize={16} fontWeight={600}>
+                Jar of Sprat
+              </Text>
+              <Text fontSize={10}>Will call Cat Tonchies</Text>
+            </Box>
+          </Flex>
+          <Button
+            bg={isTutorialCompleted ? 'gray' : '#007AFF'}
+            color="white"
+            borderRadius={13}
+            height={27}
+            fontSize={13}
+            fontWeight={400}
+            className="step-4"
+            disabled={isTutorialCompleted}
+          >
+            BUY
+          </Button>
+        </Flex>
+      </Flex>
+    </Box>
   );
 };
 

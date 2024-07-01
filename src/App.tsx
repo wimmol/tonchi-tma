@@ -6,19 +6,22 @@ import store from '@core/storeConfig/store.ts';
 import { Provider } from 'react-redux';
 import RootRouter from '@core/navigation/RootRouter.tsx';
 import WebApp from '@twa-dev/sdk';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 
 WebApp.setHeaderColor('#FFFFFF');
 WebApp.setBackgroundColor('#FFFFFF');
 
 function App() {
   return (
-    <Provider store={store}>
-      <ChakraProvider>
-        <ChakraProvider theme={chakraTheme}>
-          <RootRouter />
+    <TonConnectUIProvider manifestUrl="https://<YOUR_APP_URL>/tonconnect-manifest.json">
+      <Provider store={store}>
+        <ChakraProvider>
+          <ChakraProvider theme={chakraTheme}>
+            <RootRouter />
+          </ChakraProvider>
         </ChakraProvider>
-      </ChakraProvider>
-    </Provider>
+      </Provider>
+    </TonConnectUIProvider>
   );
 }
 

@@ -1,19 +1,24 @@
 import { Box, Center, Image } from '@chakra-ui/react';
-import carpet from '@core/assets/images/carpet.png';
+import carpetFood from '@core/assets/images/carpet-food.png';
+import carpetNoFood from '@core/assets/images/carpet-nofood.png';
 import plus from '@core/assets/icons/plus.svg';
+import TonchiCatAppear from '@core/components/TonchiCatAppear.tsx';
 
 interface CarpetProps {
-  isActive: boolean;
-  onClick: () => void;
+  isTutorialCompleted: boolean;
 }
 
-const Carpet = ({ isActive, onClick }: CarpetProps) => {
+const Carpet = ({ isTutorialCompleted }: CarpetProps) => {
   return (
-    <Center onClick={onClick}>
-      <Box opacity={isActive ? 1 : 0.5} className="step-1">
-        <Image src={carpet} />
+    <Center overflow="hidden">
+      <Box opacity={isTutorialCompleted ? 1 : 0.5} className="step-1">
+        <Image src={isTutorialCompleted ? carpetFood : carpetNoFood} />
       </Box>
-      {!isActive && <Image src={plus} position="absolute" ml={6} pb={2} />}
+      {isTutorialCompleted ? (
+        <TonchiCatAppear />
+      ) : (
+        <Image src={plus} position="absolute" ml={6} pb={2} />
+      )}
     </Center>
   );
 };

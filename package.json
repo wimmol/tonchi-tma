@@ -16,6 +16,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@reduxjs/toolkit": "^2.2.5",
+    "@tonconnect/ui-react": "^2.0.5",
     "@twa-dev/sdk": "^7.0.0",
     "axios": "^1.7.2",
     "framer-motion": "^11.2.12",

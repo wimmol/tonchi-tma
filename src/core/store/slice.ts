@@ -4,13 +4,13 @@ import { rootStateType } from '@core/store/types.ts';
 const rootSlice = createSlice({
   name: 'root',
   initialState: {
-    balance: 0,
+    balance: 5,
     isOnboardingComplete: false,
     isTutorialComplete: false,
   } as rootStateType,
   reducers: {
-    increment(state) {
-      state.balance += 1;
+    changeBalance(state, { payload }) {
+      state.balance += payload;
     },
     completeOnboarding(state) {
       state.isOnboardingComplete = true;
