@@ -13,7 +13,7 @@ WebApp.setBackgroundColor('#FFFFFF');
 
 function App() {
   return (
-    <TonConnectUIProvider manifestUrl="https://<YOUR_APP_URL>/tonconnect-manifest.json">
+    <TonConnectUIProvider manifestUrl="https://duskwerefox.github.io/manifest.json">
       <Provider store={store}>
         <ChakraProvider>
           <ChakraProvider theme={chakraTheme}>

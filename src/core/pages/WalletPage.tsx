@@ -63,10 +63,10 @@ const WalletPage = () => {
           mb={3}
           justifyContent="space-between"
         >
-          <TonConnectButton />
           <Text fontWeight={600} pl={4}>
             TON
           </Text>
+          <TonConnectButton />
         </Flex>
         <Flex
           bg="white"
