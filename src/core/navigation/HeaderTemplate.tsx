@@ -7,24 +7,32 @@ import {
   Tab,
   TabIndicator,
   TabList,
-  TabPanel,
-  TabPanels,
   Tabs,
   Text,
 } from '@chakra-ui/react';
-import HomePage from '@core/pages/HomePage.tsx';
-import WalletPage from '@core/pages/WalletPage.tsx';
-import { useEffect, useMemo, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import Tutorial from '@core/components/Tutorial.tsx';
-import { useAppSelector } from '@core/storeConfig/store.ts';
+import { useAppDispatch, useAppSelector } from '@core/storeConfig/store.ts';
 import { selectIsTutorialComplete } from '@core/store/selectors.ts';
 import ReactModal from 'react-modal';
 import homeBg from '@core/assets/images/home-bg.png';
 import buttonImage from '@core/assets/icons/button1.svg';
+import { Outlet, useNavigate } from 'react-router-dom';
+import routes from '@core/navigation/routes.ts';
+import { rootActions } from '@core/store/slice.ts';
+
+export const TabsContext = createContext<any>(null);
 
 const HeaderTemplate = () => {
+  const dispatch = useAppDispatch();
   const [tabIndex, setTabIndex] = useState(0);
+  const navigate = useNavigate();
   const onChangeTab = (index: number) => {
+    if (index) {
+      navigate(routes.wallet);
+    } else {
+      navigate(routes.home);
+    }
     setTabIndex(index);
   };
   const [isTutorialOpen, setIsTutorialOpen] = useState(false);
@@ -33,6 +41,11 @@ const HeaderTemplate = () => {
   useEffect(() => {
     if (!isTutorialCompleted) {
       setIsTutorialOpen(true);
+    } else {
+      setIsTutorialOpen(false);
+      setTimeout(() => {
+        setIsEndModalOpen(true);
+      }, 5000);
     }
   }, [isTutorialCompleted]);
   const steps = useMemo(() => {
@@ -41,6 +54,7 @@ const HeaderTemplate = () => {
         id: 'step-1',
         text: '',
         xOffset: 16,
+        yOffset: -6,
         onClick: () => {
           setIsModalOpen(true);
           setTimeout(() => {
@@ -71,7 +85,25 @@ const HeaderTemplate = () => {
         text: 'Now you need to buy some food go to “Wallet”',
         onClick: () => {
           setTabIndex(1);
+          navigate(routes.wallet);
+          setTimeout(() => {
+            setCurrentStep(3);
+          }, 100);
           setOpacity(0);
+          setTimeout(() => {
+            setOpacity(1);
+          }, 1000);
+        },
+      },
+      {
+        id: 'step-4',
+        text: '',
+        onClick: () => {
+          navigate(routes.swap);
+          setOpacity(0);
+          setTimeout(() => {
+            setIsTutorialOpen(false);
+          }, 1000);
         },
       },
     ];
@@ -82,8 +114,20 @@ const HeaderTemplate = () => {
     setTimeout(() => setOpacity(1), 750);
   }, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEndModalOpen, setIsEndModalOpen] = useState(false);
+  const tabsContextValue = useMemo(
+    () => ({
+      onSwapCompleted: () => {
+        setTabIndex(0);
+        navigate(routes.home);
+        dispatch(rootActions.completeTutorial());
+        dispatch(rootActions.changeBalance(-5));
+      },
+    }),
+    [dispatch, navigate]
+  );
   return (
-    <>
+    <TabsContext.Provider value={tabsContextValue}>
       <Box
         h="100vh"
         className="bg-transition"
@@ -135,14 +179,9 @@ const HeaderTemplate = () => {
               borderWidth={0.5}
               borderColor="#74748014"
             />
-            <TabPanels>
-              <TabPanel p={0}>
-                <HomePage />
-              </TabPanel>
-              <TabPanel>
-                <WalletPage />
-              </TabPanel>
-            </TabPanels>
+            <Box id="detail">
+              <Outlet />
+            </Box>
           </Tabs>
         </Box>
       </Box>
@@ -176,7 +215,42 @@ const HeaderTemplate = () => {
           </Center>
         </Box>
       </ReactModal>
-    </>
+      <ReactModal
+        isOpen={isEndModalOpen}
+        ariaHideApp={false}
+        style={{
+          content: {
+            height: 250,
+            width: 250,
+            left: window.innerWidth / 2 - 125,
+            top: 150,
+            border: 'none',
+            borderRadius: 10,
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            padding: 0,
+          },
+          overlay: {
+            zIndex: 100,
+          },
+        }}
+      >
+        <Box h="100%" w="100%" backgroundImage={homeBg}>
+          <CloseButton
+            onClick={() => setIsEndModalOpen(false)}
+            right={2}
+            top={2}
+            position="absolute"
+            size="md"
+          />
+          <Center flexDirection="column" h="100%" className="step-2">
+            <Text fontSize={16} px={4} textAlign="center">
+              <Text fontWeight={600}>You complete the tutorial!</Text> Check
+              some tasks in the wallet tab
+            </Text>
+          </Center>
+        </Box>
+      </ReactModal>
+    </TabsContext.Provider>
   );
 };
 
