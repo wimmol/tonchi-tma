@@ -40,7 +40,7 @@ const HeaderTemplate = () => {
   const isTutorialCompleted = useAppSelector(selectIsTutorialComplete);
   useEffect(() => {
     if (!isTutorialCompleted) {
-      //setIsTutorialOpen(true);
+      setIsTutorialOpen(true);
     } else {
       setIsTutorialOpen(false);
       setTimeout(() => {
