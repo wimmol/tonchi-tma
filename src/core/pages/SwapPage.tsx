@@ -15,7 +15,7 @@ import spratImage from '@core/assets/images/sprat.png';
 import WebApp from '@twa-dev/sdk';
 import { TabsContext } from '@core/navigation/HeaderTemplate.tsx';
 import { useAppSelector } from '@core/storeConfig/store.ts';
-import { selectBalance } from '@core/store/selectors.ts';
+import { selectBalance } from '@core/store/root/selectors.ts';
 
 const spratPrice = 5;
 

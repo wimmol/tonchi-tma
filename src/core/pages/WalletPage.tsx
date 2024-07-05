@@ -3,7 +3,7 @@ import { useAppSelector } from '@core/storeConfig/store.ts';
 import {
   selectBalance,
   selectIsTutorialComplete,
-} from '@core/store/selectors.ts';
+} from '@core/store/root/selectors.ts';
 import sendInactiveIcon from '@core/assets/icons/walletButtons/send-inactive.svg';
 import shopInactiveIcon from '@core/assets/icons/walletButtons/shop-inactive.svg';
 import plusInactiveIcon from '@core/assets/icons/walletButtons/plus-inactive.svg';
