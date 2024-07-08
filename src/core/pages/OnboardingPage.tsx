@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import WebApp from '@twa-dev/sdk';
+import { useAppDispatch } from '@core/storeConfig/store.ts';
+import { rootActions } from '@core/store/root/slice.ts';
 
 interface OnboardingProps {
   step: number;
@@ -101,7 +104,11 @@ const NextButton = styled.button<OnboardingProps>`
 `;
 
 const OnboardingPage = () => {
+  if (!WebApp.isExpanded) {
+    WebApp.expand();
+  }
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   // State variables
   const [step, setStep] = useState<number>(1);
   const [headerText, setHeaderText] = useState<string>('Welcome to TONCHI');
@@ -111,9 +118,7 @@ const OnboardingPage = () => {
   // Function to handle next step
   const nextStep = () => {
     let newStep = step + 1;
-
     setStep(newStep);
-    console.log('newStep', newStep);
     switch (newStep) {
       case 2:
         setHeaderText('Play To Learn');
@@ -127,9 +132,9 @@ const OnboardingPage = () => {
         setTimeout(() => {
           newStep++;
           setStep(newStep);
-          console.log('newStep', newStep);
         }, 10);
         setTimeout(() => {
+          dispatch(rootActions.completeOnboarding());
           navigate('/home');
         }, 3000);
         break;

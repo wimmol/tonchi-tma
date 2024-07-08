@@ -34,7 +34,7 @@ const Tutorial = ({ steps, currentStep, opacity }: TutorialProps) => {
             setCirclePosition({ x: 0, y: 0 });
           }
         },
-        circlePosition ? 750 : 0
+        circlePosition ? 150 : 0
       );
     })();
   }, [currentStep]);
