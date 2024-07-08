@@ -11,7 +11,7 @@ const rootSlice = createSlice({
   } as rootStateType,
   reducers: {
     setRoot(_, { payload }) {
-      return payload;
+      //return payload;
     },
     changeBalance(state, { payload }) {
       state.balance += payload;

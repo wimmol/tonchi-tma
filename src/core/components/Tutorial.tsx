@@ -34,7 +34,7 @@ const Tutorial = ({ steps, currentStep, opacity }: TutorialProps) => {
             setCirclePosition({ x: 0, y: 0 });
           }
         },
-        circlePosition ? 150 : 0
+        circlePosition ? 750 : 0
       );
     })();
   }, [currentStep]);
@@ -67,7 +67,7 @@ const Tutorial = ({ steps, currentStep, opacity }: TutorialProps) => {
         xmlns="http://www.w3.org/2000/svg"
         opacity={opacity}
         style={{
-          transition: 'linear 0.5s opacity',
+          transition: 'linear 0.2s opacity',
         }}
       >
         <defs>
