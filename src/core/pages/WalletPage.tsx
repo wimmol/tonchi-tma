@@ -61,11 +61,8 @@ const WalletPage = () => {
           borderRadius={12}
           p={3}
           mb={3}
-          justifyContent="space-between"
+          justifyContent="flex-end"
         >
-          <Text fontWeight={600} pl={4}>
-            TON
-          </Text>
           <TonConnectButton />
         </Flex>
         <Flex
