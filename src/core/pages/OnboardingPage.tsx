@@ -136,7 +136,7 @@ const OnboardingPage = () => {
           newStep++;
           setStep(newStep);
         }, 10);
-        //createUser();
+        createUser();
         setTimeout(() => {
           navigate(routes.home);
         }, 2000);
