@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import WebApp from '@twa-dev/sdk';
 import { useAppDispatch } from '@core/storeConfig/store.ts';
-import { rootActions } from '@core/store/root/slice.ts';
 import routes from '@core/navigation/routes.ts';
 import rootThunks from '@core/store/root/thunks.ts';
+import { rootActions } from '@core/store/root/slice.ts';
 
 interface OnboardingProps {
   step: number;
@@ -131,13 +131,13 @@ const OnboardingPage = () => {
         setButtonText('Let’s start!');
         break;
       case 4:
+        dispatch(rootActions.completeOnboarding());
         setTimeout(() => {
           newStep++;
           setStep(newStep);
         }, 10);
-        createUser();
+        //createUser();
         setTimeout(() => {
-          dispatch(rootActions.completeOnboarding());
           navigate(routes.home);
         }, 2000);
         break;

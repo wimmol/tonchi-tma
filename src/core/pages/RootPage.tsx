@@ -1,5 +1,9 @@
 import { Center, Spinner } from '@chakra-ui/react';
-import { selectRequestStatus, selectUser } from '@core/store/root/selectors.ts';
+import {
+  selectIsOnboardingComplete,
+  selectRequestStatus,
+  selectUser,
+} from '@core/store/root/selectors.ts';
 import { useAppDispatch, useAppSelector } from '@core/storeConfig/store.ts';
 import { useNavigate } from 'react-router-dom';
 import routes from '@core/navigation/routes.ts';
@@ -10,14 +14,21 @@ import rootThunks from '@core/store/root/thunks.ts';
 const RootPage = () => {
   const requestStatus = useAppSelector(selectRequestStatus);
   const userStored = useAppSelector(selectUser);
+  const isOnboardingComplete = useAppSelector(selectIsOnboardingComplete);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   useEffect(() => {
     if (isFirstLoad) {
       WebApp.sendData('entered');
-      preloadData();
+      //preloadData();
       setIsFirstLoad(false);
+      if (isOnboardingComplete) {
+        console.log(isOnboardingComplete);
+        navigate(routes.home);
+      } else {
+        navigate(routes.onboarding);
+      }
     }
   }, []);
   const preloadData = async () => {
