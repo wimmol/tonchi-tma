@@ -22,7 +22,7 @@ const WalletPage = () => {
         </Text>
         <Flex alignItems="flex-end" pt={30}>
           <Text fontSize={35} fontWeight={700} lineHeight="30px">
-            {balance}
+            {balance.toFixed(2)}
           </Text>
           <Text fontSize={30} lineHeight="30px" pl={2} color="#8E8E93">
             YTC
