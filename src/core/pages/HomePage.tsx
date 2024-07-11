@@ -10,10 +10,16 @@ import {
 import coin from '@core/assets/images/coin.png';
 import daily from '@core/assets/images/daily.png';
 import tasks from '@core/assets/images/tasks.png';
+import { useNavigate } from 'react-router-dom';
+import routes from '@core/navigation/routes.ts';
 
 const HomePage = () => {
   const isTutorialCompleted = useAppSelector(selectIsTutorialComplete);
   const balance = useAppSelector(selectBalance);
+  const navigate = useNavigate();
+  const navigateQuiz = () => {
+    navigate(routes.quiz);
+  };
   return (
     <Box
       className="tab-content"
@@ -22,7 +28,7 @@ const HomePage = () => {
       position="relative"
       overflow="hidden"
     >
-      <Box position="absolute" top={0} left={0} pt={4} pl={4}>
+      <Box position="absolute" top={0} left={0} pt={4} pl={4} zIndex={20}>
         <Flex alignItems="center" position="relative">
           <Box position="absolute" top={0} left={0}>
             <Image src={coin} />
@@ -37,7 +43,7 @@ const HomePage = () => {
             className="modal-shadow"
             h="fit-content"
           >
-            <Text>{balance}</Text>
+            <Text>{balance.toFixed(2)}</Text>
           </Box>
         </Flex>
         <Flex flexDirection="column" alignItems="center" pt={5}>
@@ -46,10 +52,15 @@ const HomePage = () => {
             Daily bonus
           </Text>
         </Flex>
-        <Flex flexDirection="column" alignItems="center" pt={3}>
+        <Flex
+          flexDirection="column"
+          alignItems="center"
+          pt={3}
+          onClick={navigateQuiz}
+        >
           <Image src={tasks} />
           <Text fontSize={10} fontWeight={500} pt={1}>
-            Tasks
+            Quiz
           </Text>
         </Flex>
       </Box>

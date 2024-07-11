@@ -39,7 +39,7 @@ const Tutorial = ({ steps, currentStep, opacity }: TutorialProps) => {
     })();
   }, [currentStep]);
   return (
-    <Box position="absolute" top={0} left={0} zIndex={2}>
+    <Box position="absolute" top={0} left={0} zIndex={50}>
       <Circle
         position="absolute"
         left={circlePosition.x - 50}
