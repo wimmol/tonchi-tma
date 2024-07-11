@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Center, Circle, Flex, Image, Text } from '@chakra-ui/react';
 import homeBg from '@core/assets/images/home-bg.png';
 import house from '@core/assets/images/house.png';
 import Carpet from '@core/components/Carpet.tsx';
@@ -57,10 +57,35 @@ const HomePage = () => {
           alignItems="center"
           pt={3}
           onClick={navigateQuiz}
+          position="relative"
         >
+          <Circle
+            pos="absolute"
+            size={3}
+            bg="#FFE869"
+            top={5}
+            style={{
+              boxShadow: '0px 0px 15px 10px #FFE869',
+            }}
+            className="opacity-pulse"
+          />
           <Image src={tasks} />
           <Text fontSize={10} fontWeight={500} pt={1}>
             Quiz
+          </Text>
+          <Text
+            fontSize={14}
+            fontWeight={700}
+            color="gray.500"
+            position="absolute"
+            left={50}
+            bottom={-20}
+            w={150}
+            style={{
+              transform: 'rotate(-30deg)',
+            }}
+          >
+            Try to touch Tonchi
           </Text>
         </Flex>
       </Box>

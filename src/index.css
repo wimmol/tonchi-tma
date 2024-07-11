@@ -24,9 +24,17 @@
     0%   {background-color: white;}
     100% {background-color: green;}
 }
+@keyframes opacity-pulse {
+    0%   {opacity: 1}
+    50% {opacity: 0}
+    100% {opacity: 1}
+}
 .red-pulse {
     animation: red-pulse 1s linear;
 }
 .green-pulse {
     animation: green-pulse 1s linear;
+}
+.opacity-pulse {
+    animation: opacity-pulse 3s ease infinite;
 }
