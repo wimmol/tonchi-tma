@@ -21,7 +21,7 @@ const RootPage = () => {
   useEffect(() => {
     if (isFirstLoad) {
       WebApp.sendData('entered');
-      //preloadData();
+      preloadData();
       setIsFirstLoad(false);
       if (isOnboardingComplete) {
         console.log(isOnboardingComplete);
