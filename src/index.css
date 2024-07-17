@@ -38,3 +38,6 @@
 .opacity-pulse {
     animation: opacity-pulse 3s ease infinite;
 }
+.hint {
+    animation: linear 2s;
+}
